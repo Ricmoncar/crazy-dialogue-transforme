@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metallic Maple Dialogue</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Creepster&family=Permanent+Marker&display=swap');
+        
+        body {
+            font-family: 'Audiowide', cursive;
+            background-color: #000;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            color: #fff;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(255, 0, 255, 0.2) 0%, transparent 20%),
+                radial-gradient(circle at 80% 40%, rgba(0, 255, 255, 0.2) 0%, transparent 20%),
+                radial-gradient(circle at 50% 70%, rgba(255, 255, 0, 0.2) 0%, transparent 20%);
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgba(20, 20, 20, 0.8);
+            border-radius: 15px;
+            box-shadow: 
+                0 0 20px rgba(255, 0, 255, 0.5),
+                0 0 40px rgba(0, 255, 255, 0.2),
+                0 0 60px rgba(255, 255, 0, 0.1);
+            padding: 20px;
+            border: 2px solid;
+            border-image: linear-gradient(
+                to right, 
+                #ff00ff, #00ffff, #ffff00, #ff00ff
+            ) 1;
+            animation: borderGlow 3s ease infinite;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        @keyframes borderGlow {
+            0% { box-shadow: 0 0 20px rgba(255, 0, 255, 0.5), 0 0 40px rgba(0, 255, 255, 0.2), 0 0 60px rgba(255, 255, 0, 0.1); }
+            50% { box-shadow: 0 0 25px rgba(0, 255, 255, 0.5), 0 0 50px rgba(255, 255, 0, 0.2), 0 0 75px rgba(255, 0, 255, 0.1); }
+            100% { box-shadow: 0 0 20px rgba(255, 0, 255, 0.5), 0 0 40px rgba(0, 255, 255, 0.2), 0 0 60px rgba(255, 255, 0, 0.1); }
+        }
+        
+        h1 {
+            font-family: 'Permanent Marker', cursive;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 3rem;
+            background: linear-gradient(to right, #ff00ff, #00ffff, #ffff00, #ff00ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: titleGlow 5s ease infinite;
+            position: relative;
+        }
+        
+        @keyframes titleGlow {
+            0% { text-shadow: 0 0 10px rgba(255, 0, 255, 0.7); }
+            25% { text-shadow: 0 0 15px rgba(0, 255, 255, 0.7); }
+            50% { text-shadow: 0 0 20px rgba(255, 255, 0, 0.7); }
+            75% { text-shadow: 0 0 15px rgba(255, 0, 255, 0.7); }
+            100% { text-shadow: 0 0 10px rgba(255, 0, 255, 0.7); }
+        }
+        
+        .description {
+            text-align: center;
+            color: #c0c0c0;
+            margin-bottom: 30px;
+            font-size: 1.2rem;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        }
+        
+        .input-container {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid;
+            border-image: linear-gradient(45deg, #ff00ff, #00ffff) 1;
+            border-radius: 8px;
+            font-size: 16px;
+            min-height: 100px;
+            box-sizing: border-box;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            font-family: 'Audiowide', cursive;
+            resize: vertical;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+        
+        textarea:focus {
+            outline: none;
+            box-shadow: 
+                0 0 10px rgba(255, 0, 255, 0.8),
+                0 0 20px rgba(0, 255, 255, 0.4);
+        }
+        
+        .transform-btn {
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: block;
+            margin-left: auto;
+            font-family: 'Permanent Marker', cursive;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+            z-index: 1;
+        }
+        
+        .transform-btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #00ffff, #ff00ff);
+            transition: all 0.5s ease;
+            z-index: -1;
+        }
+        
+        .transform-btn:hover::before {
+            left: 0;
+        }
+        
+        .transform-btn:hover {
+            box-shadow: 
+                0 0 20px rgba(0, 255, 255, 0.8),
+                0 0 40px rgba(255, 0, 255, 0.4);
+            transform: scale(1.05);
+        }
+        
+        .output-container {
+            margin-top: 30px;
+            display: none;
+        }
+        
+        .output-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #00ffff;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
+            font-family: 'Permanent Marker', cursive;
+        }
+        
+        .output-text {
+            background: linear-gradient(135deg, rgba(40, 0, 40, 0.9), rgba(0, 40, 40, 0.9));
+            padding: 20px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 16px;
+            white-space: pre-wrap;
+            line-height: 1.5;
+            position: relative;
+            overflow: hidden;
+            color: #fff;
+            border: 1px solid;
+            border-image: linear-gradient(45deg, #ff00ff, #00ffff) 1;
+            box-shadow: 
+                inset 0 0 10px rgba(255, 0, 255, 0.3),
+                0 0 20px rgba(0, 255, 255, 0.3);
+        }
+        
+        .output-text::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(45deg, rgba(255, 0, 255, 0.1) 25%, transparent 25%) -10px 0,
+                linear-gradient(135deg, rgba(0, 255, 255, 0.1) 25%, transparent 25%) -10px 0,
+                linear-gradient(45deg, transparent 75%, rgba(255, 255, 0, 0.1) 75%) -10px 0,
+                linear-gradient(135deg, transparent 75%, rgba(255, 0, 255, 0.1) 75%) -10px 0;
+            background-size: 20px 20px;
+            pointer-events: none;
+        }
+        
+        .brace {
+            color: #ff00ff;
+            font-weight: bold;
+            font-size: 1.2em;
+            text-shadow: 0 0 5px rgba(255, 0, 255, 0.7);
+        }
+        
+        .bracket {
+            color: #00ffff;
+            font-weight: bold;
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.7);
+        }
+        
+        .paren {
+            color: #ffff00;
+            font-weight: bold;
+            text-shadow: 0 0 5px rgba(255, 255, 0, 0.7);
+        }
+        
+        .star {
+            color: #ff5555;
+            font-weight: bold;
+            text-shadow: 0 0 5px rgba(255, 85, 85, 0.7);
+        }
+        
+        .quote {
+            color: #55ff55;
+            font-weight: bold;
+            text-shadow: 0 0 5px rgba(85, 255, 85, 0.7);
+        }
+        
+        .history {
+            margin-top: 40px;
+        }
+        
+        .history-item {
+            background-color: rgba(30, 30, 30, 0.9);
+            border: 1px solid;
+            border-image: linear-gradient(45deg, #ff00ff, #00ffff) 1;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .history-item:hover {
+            box-shadow: 
+                0 0 15px rgba(255, 0, 255, 0.5),
+                0 0 30px rgba(0, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .history-label {
+            font-weight: bold;
+            color: #ff00ff;
+            margin-bottom: 5px;
+            text-shadow: 0 0 5px rgba(255, 0, 255, 0.5);
+        }
+        
+        .history-output {
+            background-color: rgba(20, 20, 20, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            border-left: 3px solid;
+            border-image: linear-gradient(to bottom, #ff00ff, #00ffff) 1 100%;
+        }
+        
+        .loading {
+            display: none;
+            margin-left: 10px;
+            color: #00ffff;
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.7);
+            animation: loadingPulse 1.5s infinite;
+        }
+        
+        @keyframes loadingPulse {
+            0% { opacity: 1; text-shadow: 0 0 5px rgba(0, 255, 255, 0.7); }
+            50% { opacity: 0.3; text-shadow: 0 0 15px rgba(0, 255, 255, 0.9); }
+            100% { opacity: 1; text-shadow: 0 0 5px rgba(0, 255, 255, 0.7); }
+        }
+        
+        .api-mode {
+            margin-bottom: 10px;
+            padding: 8px 12px;
+            background-color: rgba(0, 50, 0, 0.7);
+            border-radius: 4px;
+            border-left: 4px solid #00ff00;
+            color: #00ff00;
+            font-weight: bold;
+            text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+        }
+        
+        .local-mode {
+            margin-bottom: 10px;
+            padding: 8px 12px;
+            background-color: rgba(50, 50, 0, 0.7);
+            border-radius: 4px;
+            border-left: 4px solid #ffff00;
+            color: #ffff00;
+            font-weight: bold;
+            text-shadow: 0 0 5px rgba(255, 255, 0, 0.5);
+        }
+        
+        .error-message {
+            color: #ff5555;
+            margin-top: 10px;
+            display: none;
+            background-color: rgba(50, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 4px;
+            border-left: 4px solid #ff5555;
+            text-shadow: 0 0 5px rgba(255, 85, 85, 0.5);
+        }
+        
+        .crazy-decoration {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255,0,255,0.5) 0%, rgba(255,0,255,0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.3;
+            filter: blur(8px);
+            animation: float 10s ease-in-out infinite;
+        }
+        
+        .crazy-decoration:nth-child(2) {
+            background: radial-gradient(circle, rgba(0,255,255,0.5) 0%, rgba(0,255,255,0) 70%);
+            left: 70%;
+            top: 30%;
+            width: 150px;
+            height: 150px;
+            animation-delay: -2s;
+        }
+        
+        .crazy-decoration:nth-child(3) {
+            background: radial-gradient(circle, rgba(255,255,0,0.5) 0%, rgba(255,255,0,0) 70%);
+            left: 20%;
+            top: 60%;
+            width: 180px;
+            height: 180px;
+            animation-delay: -5s;
+        }
+        
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(10px, 10px) rotate(5deg); }
+            50% { transform: translate(0, 20px) rotate(0deg); }
+            75% { transform: translate(-10px, 10px) rotate(-5deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
+        }
+        
+        /* Toggle switch styling */
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+            margin-right: 10px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(60, 60, 60, 0.7);
+            transition: .4s;
+            border-radius: 34px;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background: linear-gradient(135deg, #ff00ff, #00ffff);
+            transition: .4s;
+            border-radius: 50%;
+            box-shadow: 0 0 5px rgba(255, 0, 255, 0.5);
+        }
+        
+        input:checked + .slider {
+            background-color: rgba(0, 60, 60, 0.7);
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+            background: linear-gradient(135deg, #00ffff, #ffff00);
+            box-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+        }
+        
+        .toggle-label {
+            color: #c0c0c0;
+            font-size: 14px;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+        }
+        
+        /* Schizo Control Panel Styles */
+        .config-panel {
+            background: rgba(20, 0, 20, 0.8);
+            border: 2px solid;
+            border-image: linear-gradient(to right, #ff00ff, #00ffff, #ff5555) 1;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .config-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding: 5px;
+        }
+        
+        .config-header h2 {
+            font-family: 'Creepster', cursive;
+            color: #ff00ff;
+            margin: 0;
+            font-size: 1.8rem;
+            text-shadow: 0 0 8px rgba(255, 0, 255, 0.8);
+        }
+        
+        .config-content {
+            display: none;
+            padding-top: 15px;
+        }
+        
+        .config-group {
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 0, 255, 0.3);
+            padding-bottom: 15px;
+        }
+        
+        .config-group:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        
+        .config-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .config-label {
+            width: 30%;
+            color: #00ffff;
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+        
+        .config-value {
+            width: 10%;
+            color: #ffff00;
+            text-align: center;
+            font-weight: bold;
+            text-shadow: 0 0 5px rgba(255, 255, 0, 0.5);
+        }
+        
+        .config-input {
+            flex: 1;
+        }
+        
+        .config-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 10px;
+            border-radius: 5px;
+            background: linear-gradient(to right, #3a006a, #ff00ff);
+            outline: none;
+        }
+        
+        .config-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #00ffff;
+            cursor: pointer;
+            box-shadow: 0 0 8px rgba(0, 255, 255, 0.8);
+        }
+        
+        .config-slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #00ffff;
+            cursor: pointer;
+            box-shadow: 0 0 8px rgba(0, 255, 255, 0.8);
+        }
+        
+        .toggle-row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        
+        .toggle-item {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .toggle-checkbox {
+            margin-right: 5px;
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 3px;
+            background: rgba(60, 60, 60, 0.7);
+            border: 1px solid #00ffff;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .toggle-checkbox:checked {
+            background: #00ffff;
+        }
+        
+        .toggle-checkbox:checked::before {
+            content: "✓";
+            color: #000;
+            position: absolute;
+            font-size: 12px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .toggle-label {
+            color: #c0c0c0;
+            font-size: 0.9rem;
+        }
+        
+        .phrases-area {
+            width: 100%;
+            height: 80px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #ff00ff;
+            border-radius: 5px;
+            color: #fff;
+            padding: 8px;
+            font-family: monospace;
+            resize: vertical;
+        }
+        
+        .random-button {
+            background: linear-gradient(45deg, #ff5555, #ff00ff);
+            border: none;
+            color: #000;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-family: 'Permanent Marker', cursive;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 1rem;
+            box-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+        
+        .random-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.8);
+        }
+        
+        .danger-text {
+            color: #ff5555;
+            font-size: 0.8rem;
+            margin-top: 15px;
+            padding: 8px;
+            border-left: 3px solid #ff5555;
+            background-color: rgba(255, 0, 0, 0.1);
+        }
+        
+        .expand-icon {
+            color: #00ffff;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        /* Glitchy effect */
+        .glitch {
+            position: relative;
+        }
+        
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 #ff5555;
+            clip: rect(24px, 550px, 90px, 0);
+            animation: glitch-anim-2 3s infinite linear alternate-reverse;
+        }
+        
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 #00ffff;
+            clip: rect(85px, 550px, 140px, 0);
+            animation: glitch-anim 2.5s infinite linear alternate-reverse;
+        }
+        
+        @keyframes glitch-anim {
+            0% { clip: rect(67px, 9999px, 11px, 0); }
+            5% { clip: rect(36px, 9999px, 92px, 0); }
+            10% { clip: rect(20px, 9999px, 59px, 0); }
+            15% { clip: rect(79px, 9999px, 3px, 0); }
+            20% { clip: rect(24px, 9999px, 35px, 0); }
+            25% { clip: rect(5px, 9999px, 100px, 0); }
+            30% { clip: rect(50px, 9999px, 176px, 0); }
+            35% { clip: rect(89px, 9999px, 95px, 0); }
+            40% { clip: rect(53px, 9999px, 50px, 0); }
+            45% { clip: rect(21px, 9999px, 81px, 0); }
+            50% { clip: rect(45px, 9999px, 47px, 0); }
+            55% { clip: rect(75px, 9999px, 63px, 0); }
+            60% { clip: rect(86px, 9999px, 12px, 0); }
+            65% { clip: rect(39px, 9999px, 26px, 0); }
+            70% { clip: rect(34px, 9999px, 49px, 0); }
+            75% { clip: rect(63px, 9999px, 71px, 0); }
+            80% { clip: rect(15px, 9999px, 68px, 0); }
+            85% { clip: rect(72px, 9999px, 2px, 0); }
+            90% { clip: rect(12px, 9999px, 23px, 0); }
+            95% { clip: rect(42px, 9999px, 78px, 0); }
+            100% { clip: rect(38px, 9999px, 53px, 0); }
+        }
+        
+        @keyframes glitch-anim-2 {
+            0% { clip: rect(8px, 9999px, 31px, 0); }
+            5% { clip: rect(94px, 9999px, 95px, 0); }
+            10% { clip: rect(23px, 9999px, 25px, 0); }
+            15% { clip: rect(67px, 9999px, 34px, 0); }
+            20% { clip: rect(38px, 9999px, 71px, 0); }
+            25% { clip: rect(6px, 9999px, 13px, 0); }
+            30% { clip: rect(82px, 9999px, 59px, 0); }
+            35% { clip: rect(51px, 9999px, 11px, 0); }
+            40% { clip: rect(53px, 9999px, 7px, 0); }
+            45% { clip: rect(70px, 9999px, 46px, 0); }
+            50% { clip: rect(56px, 9999px, 93px, 0); }
+            55% { clip: rect(37px, 9999px, 41px, 0); }
+            60% { clip: rect(61px, 9999px, 17px, 0); }
+            65% { clip: rect(45px, 9999px, 62px, 0); }
+            70% { clip: rect(83px, 9999px, 85px, 0); }
+            75% { clip: rect(4px, 9999px, 91px, 0); }
+            80% { clip: rect(27px, 9999px, 14px, 0); }
+            85% { clip: rect(74px, 9999px, 29px, 0); }
+            90% { clip: rect(16px, 9999px, 55px, 0); }
+            95% { clip: rect(46px, 9999px, 81px, 0); }
+            100% { clip: rect(19px, 9999px, 37px, 0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="crazy-decoration"></div>
+        <div class="crazy-decoration"></div>
+        <div class="crazy-decoration"></div>
+        
+        <h1 class="glitch" data-text="Metallic Maple Dialogue">Metallic Maple Dialogue</h1>
+        <p class="description">please god help me</p>
+        
+        <!-- SCH1Z0 C0NTR0L PANEL -->
+        <div class="config-panel">
+            <div class="config-header" onclick="toggleConfig()">
+                <h2>SCH1Z0 C0NTR0L PANEL!!!</h2>
+                <span class="expand-icon" id="configIcon">▼</span>
+            </div>
+            <div class="config-content" id="configContent">
+                <div class="config-group">
+                    <div class="config-row">
+                        <div class="config-label">SCHIZO LEVEL</div>
+                        <div class="config-input">
+                            <input type="range" min="1" max="10" value="5" class="config-slider" id="insanityLevel" oninput="updateValue('insanityLevelValue', this.value); updateSchizSettings();">
+                        </div>
+                        <div class="config-value" id="insanityLevelValue">5</div>
+                    </div>
+                    <div class="config-row">
+                        <div class="config-label">INTERRUPTION FREQUENCY</div>
+                        <div class="config-input">
+                            <input type="range" min="1" max="10" value="3" class="config-slider" id="interruptionFreq" oninput="updateValue('interruptionFreqValue', this.value); updateSchizSettings();">
+                        </div>
+                        <div class="config-value" id="interruptionFreqValue">3</div>
+                    </div>
+                    <div class="config-row">
+                        <div class="config-label">BRACKET NESTING DEPTH</div>
+                        <div class="config-input">
+                            <input type="range" min="1" max="5" value="2" class="config-slider" id="bracketDepth" oninput="updateValue('bracketDepthValue', this.value); updateSchizSettings();">
+                        </div>
+                        <div class="config-value" id="bracketDepthValue">2</div>
+                    </div>
+                </div>
+                
+                <div class="config-group">
+                    <div class="config-label">TEXT PATTERNS</div>
+                    <div class="toggle-row">
+                        <div class="toggle-item">
+                            <input type="checkbox" class="toggle-checkbox" id="randCaps" checked onchange="updateSchizSettings();">
+                            <label class="toggle-label">RANDOM CAPS</label>
+                        </div>
+                        <div class="toggle-item">
+                            <input type="checkbox" class="toggle-checkbox" id="ellipses" checked onchange="updateSchizSettings();">
+                            <label class="toggle-label">EXCESSIVE PUNCTUATION</label>
+                        </div>
+                        <div class="toggle-item">
+                            <input type="checkbox" class="toggle-checkbox" id="repeatedWords" checked onchange="updateSchizSettings();">
+                            <label class="toggle-label">WORD REPETITION</label>
+                        </div>
+                        <div class="toggle-item">
+                            <input type="checkbox" class="toggle-checkbox" id="nestedBrackets" checked onchange="updateSchizSettings();">
+                            <label class="toggle-label">NESTED BRACKETS</label>
+                        </div>
+                        <div class="toggle-item">
+                            <input type="checkbox" class="toggle-checkbox" id="weirdSymbols" checked onchange="updateSchizSettings();">
+                            <label class="toggle-label">FREAKY SYMBOLS</label>
+                        </div>
+                        <div class="toggle-item">
+                            <input type="checkbox" class="toggle-checkbox" id="cutoffSentences" checked onchange="updateSchizSettings();">
+                            <label class="toggle-label">CUTOFF SENTENCES</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="config-group">
+                    <div class="config-label">CATCHPHRASES</div>
+                    <textarea class="phrases-area" id="customPhrases" onchange="updateSchizSettings();">Could you please get off my asphalt?
+                        Could you please get off my asphalt?
+                        I hate this life.
+                        COOL COOL COOL!!!
+                        i love freakbob.
+                        TIM CHEESE. TIM CHEESE DID IT!
+                        my little pony, my little pony!
+                        I can't hear the where am I?
+                        HELLO BESTIE!
+                        Friendship is magic!
+                        Sorry! Miss clicked!
+                        SOMEBODY'S POISONED? OH NO! NO NO NO!
+                        Just me and you right, with your blaster your--
+                        IS THAT HOW YOU DO IT? COOL COOL COOL!!!
+                        May you get off my asphalt?
+                        FREE DOM!
+                        SHIT'S GOING DOWN!!! RUN!!!
+                        THE VOICES WON'T STOP! MAKE THEM STOP!
+                        I'm being watched through the microwave!
+                        Have you seen the yellow sign?
+                        They're in the walls! IN THE WALLS!
+                        What year is it? WHAT YEAR IS IT??
+                        I can taste colors now! PURPLE TASTES LIKE STATIC!
+                        Government agents in my cereal AGAIN...
+                        TIME IS A FLAT CIRCLE! FLAT CIRCLE!
+                        AAAAAAAAAAAAAAAAAAAAAAA
+                        oh hey that is the when the the the ..?
+                        AND NOW.. THE END IS NEAR..
+                        OH MY LITTLE BABY BOY! LALALALALALA!
+                        Wait..
+                        IT LOOKS LIKE I'M BEST AND YOU'RE THE WORST-WORST!
+                        :(
+                        :)
+                        :D
+                        :3
+                        :O
+                        I wanna go home..
+                        I DONT WANNA GO HOME!!!
+                        HOW CAN YOU SEE INTO MY EYES LIKE OPEN DOORS..?
+                        POPIPOPOPOPIPO!
+                        VENGA MUCHACO!!
+                        DISTURBING THE PEACE!?!?
+                        I'M THE (girl?) YOU DIE FOOOR!
+                        TONIGHT THE MUSIC SINGS SO LOUD...
+                        NOW SAY GOODBYE..
+                        Give me what I want...
+                        Who am I supposed to please?
+                        GET OFF MY ASSPHALT!
+                        I'm crucified... Crucified... Like my boysaviour...
+                        Do you play support?
+                        Do you play ADC?
+                        do you play Top?
+                        Do you play Mid?
+                        Do you play Bot?
+                        Do you int?
+                        IM INTING!!!
+                        IM RUNNIG IT DOWN MID BYE
+                        AHAWKHROHAMJO
+                        WHY? WHO? HUH?
+                        I FEEL LIKE A THE
+                        DO YOU HEAR THAT?... THE CALL OF BATMAN..
+                        I DON'T!
+                        NIGHTMAREª!ª
+                        MEIN HERZ BRENNT
+                        HEY THERE DELILAH WHAT'S IT LIKE IN NEW YORK CITY?
+                        WANNA START A FIRE?
+                        FUCK ARSON
+                        2020? WHAT'S THAT?!
+                        NOW I WILL TELL YOU WHAT I'VE DONE FOR YOU..
+                        GOING UNDER!
+                        WELCOME TO THE BLACK PARADE!!!
+                        FURY'S UNDERWEAR? WHERE?
+                        DIPLOMACY'S FAILED US..
+                        EMOTIWHO?!
+                        JIMMY? AHHHHHHHHHH JUMPSCARE...
+                        SOME SAY YELLOW IS THE COLOR OF JUSTICE!
+                        CLOSE, BUT THAT'S NOT THE WORD I WOULD CHOOSE!
+                        can you like... shut up alradybro?
+                        ngh
+                        MEOW MEOW MEOW!
+                        WOOF WOOF.</textarea>
+                </div>
+                
+                <button class="random-button" onclick="randomizeSettings()">RANDOMIZE ALL SETTINGS</button>
+                
+
+
+            </div>
+        </div>
+        
+        <div class="input-container">
+            <div id="apiMode" class="api-mode" style="display: none;">
+                Using maplegpt uwu
+            </div>
+            <div id="localMode" class="local-mode">
+                Using Local boring shit
+            </div>
+            
+            <textarea id="inputText" placeholder="dialog"></textarea>
+            <div style="display: flex; justify-content: space-between; margin-top: 10px; align-items: center;">
+                <div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="apiToggle" onchange="toggleApiMode()">
+                        <span class="slider"></span>
+                    </label>
+                    <span class="toggle-label">Use maplegpt</span>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <button class="transform-btn" onclick="transformText()">
+                        <span>Transform!!!!</span>
+                    </button>
+                    <span id="loading" class="loading">Transforming...</span>
+                </div>
+            </div>
+            <div id="errorMessage" class="error-message"></div>
+        </div>
+        
+        <div id="outputContainer" class="output-container">
+            <div class="output-title">
+                <span>maplegtp:</span>
+            </div>
+            <div id="outputText" class="output-text"></div>
+        </div>
+        
+        <div id="history" class="history"></div>
+    </div>
+    
+    <script>
+        // DeepSeek API key
+        const DEEPSEEK_API_KEY = "sk-3a89c8e5c29441eab94b51a4e0b8a069";
+        
+        // Store history
+        let history = [];
+        let useApi = false;
+        
+        // Current schiz settings object
+        let schizSettings = {
+            insanityLevel: 5,
+            interruptionFreq: 3,
+            bracketDepth: 2,
+            randCaps: true,
+            ellipses: true,
+            repeatedWords: true,
+            nestedBrackets: true,
+            weirdSymbols: true,
+            cutoffSentences: true,
+            customPhrases: []
+        };
+        
+        // Initialize the UI
+        function init() {
+            // Set initial mode
+            updateModeDisplay();
+            
+            // Add glowing effects
+            addGlowingEffects();
+            
+            // Load initial schiz settings
+            updateSchizSettings();
+        }
+        
+        // Add random glowing effects to the page
+        function addGlowingEffects() {
+            const container = document.querySelector('.container');
+            
+            // Create random glowing dots
+            for (let i = 0; i < 5; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'crazy-decoration';
+                dot.style.left = `${Math.random() * 100}%`;
+                dot.style.top = `${Math.random() * 100}%`;
+                dot.style.width = `${100 + Math.random() * 100}px`;
+                dot.style.height = dot.style.width;
+                dot.style.animationDelay = `${-Math.random() * 10}s`;
+                
+                // Random color
+                const colors = ['#ff00ff', '#00ffff', '#ffff00', '#ff5555', '#55ff55'];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                dot.style.background = `radial-gradient(circle, ${color}55 0%, ${color}00 70%)`;
+                
+                container.appendChild(dot);
+            }
+        }
+        
+        // Toggle configuration panel
+        function toggleConfig() {
+            const configContent = document.getElementById('configContent');
+            const configIcon = document.getElementById('configIcon');
+            
+            if (configContent.style.display === 'block') {
+                configContent.style.display = 'none';
+                configIcon.innerHTML = '▼';
+            } else {
+                configContent.style.display = 'block';
+                configIcon.innerHTML = '▲';
+            }
+        }
+        
+        // Update displayed value for sliders
+        function updateValue(elementId, value) {
+            document.getElementById(elementId).textContent = value;
+        }
+        
+        // Update settings from form controls
+        function updateSchizSettings() {
+            schizSettings.insanityLevel = parseInt(document.getElementById('insanityLevel').value);
+            schizSettings.interruptionFreq = parseInt(document.getElementById('interruptionFreq').value);
+            schizSettings.bracketDepth = parseInt(document.getElementById('bracketDepth').value);
+            schizSettings.randCaps = document.getElementById('randCaps').checked;
+            schizSettings.ellipses = document.getElementById('ellipses').checked;
+            schizSettings.repeatedWords = document.getElementById('repeatedWords').checked;
+            schizSettings.nestedBrackets = document.getElementById('nestedBrackets').checked;
+            schizSettings.weirdSymbols = document.getElementById('weirdSymbols').checked;
+            schizSettings.cutoffSentences = document.getElementById('cutoffSentences').checked;
+            
+            // Get custom phrases, split by line and filter out empty lines
+            const phrasesText = document.getElementById('customPhrases').value;
+            schizSettings.customPhrases = phrasesText.split('\n').filter(phrase => phrase.trim() !== '');
+            
+            console.log("Settings updated:", schizSettings);
+        }
+        
+        // Randomize all settings
+        function randomizeSettings() {
+            document.getElementById('insanityLevel').value = Math.floor(Math.random() * 10) + 1;
+            document.getElementById('interruptionFreq').value = Math.floor(Math.random() * 10) + 1;
+            document.getElementById('bracketDepth').value = Math.floor(Math.random() * 5) + 1;
+            
+            document.getElementById('randCaps').checked = Math.random() > 0.2; // 80% chance of being checked
+            document.getElementById('ellipses').checked = Math.random() > 0.2;
+            document.getElementById('repeatedWords').checked = Math.random() > 0.2;
+            document.getElementById('nestedBrackets').checked = Math.random() > 0.2;
+            document.getElementById('weirdSymbols').checked = Math.random() > 0.2;
+            document.getElementById('cutoffSentences').checked = Math.random() > 0.2;
+            
+            // Update displayed values
+            updateValue('insanityLevelValue', document.getElementById('insanityLevel').value);
+            updateValue('interruptionFreqValue', document.getElementById('interruptionFreq').value);
+            updateValue('bracketDepthValue', document.getElementById('bracketDepth').value);
+            
+            // Update the settings object
+            updateSchizSettings();
+            
+            // Add visual feedback
+            const randomButton = document.querySelector('.random-button');
+            randomButton.textContent = "CHAOS ACTIVATED!";
+            randomButton.style.background = "linear-gradient(45deg, #ff0000, #ff00ff)";
+            randomButton.style.boxShadow = "0 0 20px rgba(255, 0, 0, 0.8)";
+            
+            setTimeout(() => {
+                randomButton.textContent = "RANDOMIZE ALL SETTINGS";
+                randomButton.style.background = "linear-gradient(45deg, #ff5555, #ff00ff)";
+                randomButton.style.boxShadow = "0 0 10px rgba(255, 0, 255, 0.5)";
+            }, 1000);
+        }
+        
+        // Update mode display
+        function updateModeDisplay() {
+            document.getElementById('apiMode').style.display = useApi ? 'block' : 'none';
+            document.getElementById('localMode').style.display = useApi ? 'none' : 'block';
+        }
+        
+        // Toggle API mode
+        function toggleApiMode() {
+            useApi = document.getElementById('apiToggle').checked;
+            updateModeDisplay();
+        }
+        
+        // Transform text
+        async function transformText() {
+            const inputText = document.getElementById('inputText').value.trim();
+            if (!inputText) return;
+            
+            // Show loading
+            document.getElementById('loading').style.display = 'inline-block';
+            document.getElementById('errorMessage').style.display = 'none';
+            
+            try {
+                let result;
+                
+                if (useApi) {
+                    // Use DeepSeek API
+                    result = await callDeepSeekApi(inputText);
+                } else {
+                    // Use local mock transformation
+                    // Simulate API delay
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    result = mockTransform(inputText);
+                }
+                
+                // Update output
+                const outputContainer = document.getElementById('outputContainer');
+                const outputText = document.getElementById('outputText');
+                
+                // Apply formatting to the output
+                outputText.innerHTML = formatCrazyText(result);
+                
+                // Show output
+                outputContainer.style.display = 'block';
+                
+                // Add to history (max 5 items)
+                addToHistory(inputText, result);
+            } catch (error) {
+                // Show error message
+                const errorMessage = document.getElementById('errorMessage');
+                errorMessage.textContent = `Error: ${error.message}`;
+                errorMessage.style.display = 'block';
+                console.error('Error:', error);
+            } finally {
+                // Hide loading
+                document.getElementById('loading').style.display = 'none';
+            }
+        }
+        
+        // Call DeepSeek API
+        async function callDeepSeekApi(text) {
+            try {
+                // Build the system prompt based on schiz settings
+                let systemPrompt = `You will transform normal dialogue into a crazy character style. The style has these characteristics:
+                    1. Triple curly braces at beginning and end {{{ }}}
+                    2. Words often in ALL CAPS
+                    3. Random interjections in various bracket styles: [], {}, (), "*", ""
+                    4. Sometimes ellipses or random punctuation
+                    5. Nested bracket structures
+                `;
+                
+                // Add custom instructions based on schiz settings
+                systemPrompt += `\nINSANITY LEVEL: ${schizSettings.insanityLevel}/10 - `;
+                if (schizSettings.insanityLevel <= 3) {
+                    systemPrompt += "Keep it somewhat coherent with occasional oddness.";
+                } else if (schizSettings.insanityLevel <= 7) {
+                    systemPrompt += "Make it quite fragmented and erratic.";
+                } else {
+                    systemPrompt += "Make it EXTREMELY chaotic and nearly incomprehensible!";
+                }
+                
+                systemPrompt += `\nINTERRUPTION FREQUENCY: ${schizSettings.interruptionFreq}/10 - Include frequent random interjections.`;
+                systemPrompt += `\nBRACKET NESTING DEPTH: ${schizSettings.bracketDepth}/5 - Use this level of bracket nesting.`;
+                
+                // Add feature toggles
+                systemPrompt += "\nFEATURES ENABLED:";
+                if (schizSettings.randCaps) systemPrompt += "\n- Use RANDOM CAPITALIZATION for words";
+                if (schizSettings.ellipses) systemPrompt += "\n- Use EXCESSIVE PUNCTUATION like '.......' and '!?!?!?'";
+                if (schizSettings.repeatedWords) systemPrompt += "\n- REPEAT WORDS randomly";
+                if (schizSettings.nestedBrackets) systemPrompt += "\n- Use NESTED BRACKETS for complexity";
+                if (schizSettings.weirdSymbols) systemPrompt += "\n- Include WEIRD SYMBOLS like ∆∆§, †‡, etc.";
+                if (schizSettings.cutoffSentences) systemPrompt += "\n- ABRUPTLY CUT OFF sentences sometimes";
+                
+                // Add custom phrases if available
+                if (schizSettings.customPhrases.length > 0) {
+                    systemPrompt += "\n\nUSE THESE PHRASES as random interjections:";
+                    schizSettings.customPhrases.forEach(phrase => {
+                        systemPrompt += `\n- "${phrase}"`;
+                    });
+                }
+                
+                // Add examples
+                systemPrompt += `\n\nHere are some examples:
+                Input: "My favorite song! Let's rock!"
+                Output: {{{ OH MY FAVORITE [[*SOMEBODY'S POISONED? OH NO! NO NO NO!*]] {Just me and you right, with your blaster your--} "MY FAVORITE ....... { IS THAT HOW YOU DO IT? COOL COOL COOL!!! } [ *I hate this life.*] (Could you please get off my asphalt?) LET'S ROCK AND ROLL AND ROCK! }}}
+                
+                Input: "Who are you? Oh! Hi Justin!"
+                Output: {{{ WHO ARE YOU? [ my little pony, my little pony!] ((I can't hear the where am I?)) HELLO BESTIE! [ Friendship is magic! ] ∆∆§ Sorry! Miss clicked! [*Could you get off my asphalt, please?*] JUSTIN! HELLO! GOOD }}}
+                
+                Input: "Geno! things aren't going according to plan!"
+                Output: [ {{{**GEEENOOOO**}}}} [ 000... *May you get off my asphalt?* ] FREE DOM! -- "SHIT'S GOING DOWN!!! RUN!!!" {WHO?} ] }}}`;
+                
+                // Calling the actual DeepSeek API
+                const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${DEEPSEEK_API_KEY}`
+                    },
+                    body: JSON.stringify({
+                        model: "deepseek-chat",
+                        messages: [
+                            {
+                                role: "system",
+                                content: systemPrompt
+                            },
+                            {
+                                role: "user",
+                                content: `Transform this dialogue into the crazy character style: "${text}"`
+                            }
+                        ],
+                        max_tokens: 500,
+                        temperature: schizSettings.insanityLevel / 5, // Increase randomness with insanity level
+                    })
+                });
+                
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(`API error: ${errorData.error?.message || response.status}`);
+                }
+                
+                const data = await response.json();
+                return data.choices[0].message.content;
+            } catch (error) {
+                console.error('API call error:', error);
+                throw new Error('Failed to call DeepSeek API. Please try again later.');
+            }
+        }
+        
+        // Mock transformation using schiz settings
+        function mockTransform(text) {
+            // Use the current schizSettings
+            const insanityLevel = schizSettings.insanityLevel;
+            const interruptionFreq = schizSettings.interruptionFreq;
+            const bracketDepth = schizSettings.bracketDepth;
+            
+            const brackets = [
+                { open: '[', close: ']' },
+                { open: '{', close: '}' },
+                { open: '(', close: ')' },
+                { open: '[[*', close: '*]]' },
+                { open: '"', close: '"' },
+                { open: '∆∆§', close: '' },
+                { open: '--', close: '--' }
+            ];
+            
+            // Get phrases from settings or use defaults
+            const phrases = schizSettings.customPhrases.length > 0 
+                ? schizSettings.customPhrases 
+                : [
+                    'WHO?',
+                    'COOL COOL COOL!!!',
+                    'I hate this life.',
+                    'Could you please get off my asphalt?',
+                    'my little pony, my little pony!',
+                    'I can\'t hear the where am I?',
+                    'HELLO BESTIE!',
+                    'Friendship is magic!',
+                    'Sorry! Miss clicked!',
+                    'SOMEBODY\'S POISONED? OH NO! NO NO NO!',
+                    'Just me and you right, with your blaster your--',
+                    'IS THAT HOW YOU DO IT? COOL COOL COOL!!!',
+                    'May you get off my asphalt?',
+                    'FREE DOM!',
+                    'SHIT\'S GOING DOWN!!! RUN!!!'
+                ];
+            
+            // Start with triple braces
+            let result = '{{{ ';
+            
+            // Process text based on settings
+            const words = text.split(' ');
+            
+            for (let i = 0; i < words.length; i++) {
+                let word = words[i];
+                
+                // Random capitalization if enabled
+                if (schizSettings.randCaps && Math.random() < 0.5 * (insanityLevel / 10)) {
+                    word = Math.random() < 0.7 ? word.toUpperCase() : word.toLowerCase();
+                }
+                
+                // Word repetition if enabled
+                if (schizSettings.repeatedWords && Math.random() < 0.2 * (insanityLevel / 10)) {
+                    const repeatCount = Math.floor(Math.random() * 3) + 2;
+                    word = Array(repeatCount).fill(word).join(' ');
+                }
+                
+                result += word + ' ';
+                
+                // Add interruptions based on frequency setting and insanity level
+                if (Math.random() < (interruptionFreq / 10) * (insanityLevel / 10)) {
+                    // Add ellipses/punctuation if enabled
+                    if (schizSettings.ellipses && Math.random() < 0.3 * (insanityLevel / 10)) {
+                        const punctuation = ['...', '!!!!', '???', '?!?!?!', '......', '?????', '!?!?!?'];
+                        result += punctuation[Math.floor(Math.random() * punctuation.length)] + ' ';
+                    }
+                    
+                    // Add nested brackets if enabled
+                    if (schizSettings.nestedBrackets) {
+                        let nestedContent = '';
+                        
+                        // Create nested structure based on bracket depth setting
+                        for (let depth = 0; depth < Math.min(bracketDepth, 5); depth++) {
+                            if (Math.random() < 0.7) { // 70% chance to add a bracket at this depth
+                                const bracketStyle = brackets[Math.floor(Math.random() * brackets.length)];
+                                const phrase = phrases[Math.floor(Math.random() * phrases.length)];
+                                
+                                if (depth === 0) {
+                                    nestedContent = ` ${bracketStyle.open} ${phrase} ${bracketStyle.close} `;
+                                } else {
+                                    nestedContent = ` ${bracketStyle.open} ${nestedContent} ${bracketStyle.close} `;
+                                }
+                            }
+                        }
+                        
+                        result += nestedContent;
+                    } else {
+                        // Just add a simple bracketed phrase
+                        const bracketStyle = brackets[Math.floor(Math.random() * brackets.length)];
+                        const phrase = phrases[Math.floor(Math.random() * phrases.length)];
+                        result += ` ${bracketStyle.open} ${phrase} ${bracketStyle.close} `;
+                    }
+                }
+                
+                // Add weird symbols if enabled
+                if (schizSettings.weirdSymbols && Math.random() < 0.15 * (insanityLevel / 10)) {
+                    const symbols = ['∆∆§', '†‡', '¿¡', '※※※', '⍙⍚⍛', '⚠⚠⚠', '¶¶¶', '⚑⚐'];
+                    result += symbols[Math.floor(Math.random() * symbols.length)] + ' ';
+                }
+                
+                // Cut off sentences if enabled
+                if (schizSettings.cutoffSentences && Math.random() < 0.1 * (insanityLevel / 10)) {
+                    result += '-- NO NO NO ';
+                }
+            }
+            
+            // For extreme insanity levels, add random final outbursts
+            if (insanityLevel >= 8 && Math.random() < 0.7) {
+                const outbursts = [
+                    ' THE SIGNAL IS COMING FROM INSIDE THE HOUSE! ',
+                    ' THEY\'RE WATCHING THROUGH THE SCREENS! ',
+                    ' REALITY IS TEARING APART AT THE SEAMS! ',
+                    ' THE CODE IS BREAKING!!! ',
+                    ' DO YOU HEAR THAT SOUND? THAT TERRIBLE SOUND!? ',
+                    ' WE\'RE ALL JUST PUPPETS! PUPPETS!!! '
+                ];
+                result += outbursts[Math.floor(Math.random() * outbursts.length)];
+            }
+            
+            // End with triple braces
+            result += '}}}';
+            
+            return result;
+        }
+        
+        // Format the crazy text with colors - FIXED VERSION
+        function formatCrazyText(text) {
+            // Step 1: Replace all special characters with temporary placeholders
+            let tempText = text
+                .replace(/\{\{\{/g, '###TRIPLEBRACE_OPEN###')
+                .replace(/\}\}\}/g, '###TRIPLEBRACE_CLOSE###')
+                .replace(/\[/g, '###BRACKET_OPEN###')
+                .replace(/\]/g, '###BRACKET_CLOSE###')
+                .replace(/\(/g, '###PAREN_OPEN###')
+                .replace(/\)/g, '###PAREN_CLOSE###')
+                .replace(/\*/g, '###STAR###')
+                .replace(/"/g, '###QUOTE###')
+                .replace(/--/g, '###DASH###')
+                .replace(/∆∆§/g, '###DELTA###');
+            
+            // Step 2: Replace all placeholders with HTML spans
+            tempText = tempText
+                .replace(/###TRIPLEBRACE_OPEN###/g, '<span class="brace">{{{</span>')
+                .replace(/###TRIPLEBRACE_CLOSE###/g, '<span class="brace">}}}</span>')
+                .replace(/###BRACKET_OPEN###/g, '<span class="bracket">[</span>')
+                .replace(/###BRACKET_CLOSE###/g, '<span class="bracket">]</span>')
+                .replace(/###PAREN_OPEN###/g, '<span class="paren">(</span>')
+                .replace(/###PAREN_CLOSE###/g, '<span class="paren">)</span>')
+                .replace(/###STAR###/g, '<span class="star">*</span>')
+                .replace(/###QUOTE###/g, '<span class="quote">"</span>')
+                .replace(/###DASH###/g, '<span class="highlight-text">--</span>')
+                .replace(/###DELTA###/g, '<span class="highlight-text">∆∆§</span>');
+            
+            return tempText;
+        }
+        
+        // Add to history
+        function addToHistory(input, output) {
+            // Add to start of array
+            history.unshift({ input, output });
+            
+            // Keep only 5 items
+            if (history.length > 5) {
+                history = history.slice(0, 5);
+            }
+            
+            // Update history display
+            updateHistoryDisplay();
+        }
+        
+        // Update history display
+        function updateHistoryDisplay() {
+            const historyContainer = document.getElementById('history');
+            
+            // Clear existing history
+            historyContainer.innerHTML = '';
+            
+            // Add title if there's history
+            if (history.length > 0) {
+                const title = document.createElement('h2');
+                title.className = 'output-title';
+                title.innerHTML = 'History';
+                historyContainer.appendChild(title);
+            }
+            
+            // Add each history item
+            history.forEach(item => {
+                const historyItem = document.createElement('div');
+                historyItem.className = 'history-item';
+                
+                // Input
+                const inputLabel = document.createElement('div');
+                inputLabel.className = 'history-label';
+                inputLabel.textContent = 'Input:';
+                
+                const inputText = document.createElement('div');
+                inputText.textContent = item.input;
+                inputText.style.color = '#c0c0c0';
+                inputText.style.marginBottom = '10px';
+                
+                // Output
+                const outputLabel = document.createElement('div');
+                outputLabel.className = 'history-label';
+                outputLabel.textContent = 'Output:';
+                
+                const outputText = document.createElement('div');
+                outputText.className = 'history-output';
+                outputText.innerHTML = formatCrazyText(item.output);
+                
+                // Add to history item
+                historyItem.appendChild(inputLabel);
+                historyItem.appendChild(inputText);
+                historyItem.appendChild(outputLabel);
+                historyItem.appendChild(outputText);
+                
+                // Add to history container
+                historyContainer.appendChild(historyItem);
+            });
+        }
+        
+        // Initialize the application
+        init();
+    </script>
+</body>
+</html>
